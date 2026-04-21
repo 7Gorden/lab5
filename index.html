@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Резюме - Чепеляк Марк</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <button id="theme-toggle">Змінити тему</button>
+
+    <header class="main-header">
+        <h1>Чепеляк Марк Васильович</h1>
+        <p><strong>Посада:</strong> Junior Cybersecurity Specialist</p>
+        <p>Локація: Львів, Україна | Email: mark.chepeliak@lpnu.ua</p>
+    </header>
+
+    <main>
+        <section class="content-block">
+            <h2>Професійне резюме</h2>
+            <p>Студент "Львівської політехніки", орієнтований на розвиток у сфері кібербезпеки та захисту даних.</p>
+        </section>
+
+        <section class="content-block">
+            <h2>Освіта</h2>
+            <p><strong>Національний університет "Львівська політехніка"</strong></p>
+            <p>Спеціальність: Кібербезпека (у процесі навчання)</p>
+        </section>
+
+        <section class="content-block">
+            <h2>Відгуки (Comments)</h2>
+            <div id="comments-container"></div>
+        </section>
+
+        <section class="content-block">
+            <h2>Технічні навички</h2>
+            <table>
+                <tr>
+                    <th>Категорія</th>
+                    <th>Інструменти</th>
+                </tr>
+                <tr>
+                    <td>Веб-технології</td>
+                    <td>HTML5, CSS3 (основи)</td>
+                </tr>
+                <tr>
+                    <td>Контроль версій</td>
+                    <td>Git, GitHub</td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="content-block">
+            <h2>Мови</h2>
+            <ul>
+                <li>Українська — Рідна</li>
+                <li>Англійська — B2 (Upper Intermediate)</li>
+            </ul>
+        </section>
+    </main>
+
+    <div id="feedback-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal">&times;</span>
+            <h3>Зворотний зв'язок</h3>
+            <form action="https://formspree.io/f/mrerypqo" method="POST"> 
+                <input type="text" name="name" placeholder="Ім'я" required> 
+                <input type="email" name="email" placeholder="Email" required> 
+                <input type="tel" name="phone" placeholder="Номер телефону"> 
+                <textarea name="message" placeholder="Ваше повідомлення" rows="4"></textarea> 
+                <button type="submit">Відправити</button> 
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p><em>Створено у 2026 році для лаб. роботи №4 з веб-програмування</em></p>
+        <div id="footer-info"></div> 
+    </footer>
+
+    <script>
+        // 1. LocalStorage: дані про систему
+        const sysInfo = {
+            os: navigator.platform,
+            browser: navigator.userAgent
+        };
+        localStorage.setItem("userSystemInfo", JSON.stringify(sysInfo));
+
+        // Виведення у футер
+        const footerInfo = document.getElementById("footer-info");
+        const storedData = JSON.parse(localStorage.getItem("userSystemInfo"));
+        if (storedData && footerInfo) {
+            footerInfo.innerText = `Ваша система: ${storedData.os} | Браузер: ${storedData.browser}`;
+        }
+
+        // 2. Коментарі з JSONPlaceholder
+        const myVariant = 1; 
+        fetch(`https://jsonplaceholder.typicode.com/posts/${myVariant}/comments`)
+            .then(response => response.json())
+            .then(comments => {
+                const container = document.getElementById("comments-container");
+                comments.forEach(c => {
+                    const card = document.createElement("div");
+                    card.className = "comment-card";
+                    card.innerHTML = `
+                        <strong>${c.name}</strong><br>
+                        <small>${c.email}</small>
+                        <p>${c.body}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+
+        // 3. Модальне вікно через 1 хв
+        setTimeout(() => {
+            const modal = document.getElementById("feedback-modal");
+            if(modal) modal.classList.add("show");
+        }, 60000);
+
+        document.getElementById("close-modal").onclick = () => {
+            document.getElementById("feedback-modal").classList.remove("show");
+        };
+
+        // 4. Логіка зміни теми
+        const themeBtn = document.getElementById("theme-toggle");
+        themeBtn.addEventListener("click", function() {
+            document.body.classList.toggle("dark");
+            console.log("Клас 'dark' зараз: " + document.body.classList.contains("dark"));
+        });
+
+        // Авто-тема (після 21:00 або до 07:00)
+        const hour = new Date().getHours();
+        if (hour < 7 || hour >= 21) {
+            document.body.classList.add("dark");
+        }
+    </script>
+</body>
+</html>
