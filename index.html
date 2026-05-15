@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    <button id="theme-toggle">Змінити тему</button>
-
     <header class="main-header">
         <h1>Чепеляк Марк Васильович</h1>
         <p><strong>Посада:</strong> Junior Cybersecurity Specialist</p>
@@ -25,11 +22,6 @@
             <h2>Освіта</h2>
             <p><strong>Національний університет "Львівська політехніка"</strong></p>
             <p>Спеціальність: Кібербезпека (у процесі навчання)</p>
-        </section>
-
-        <section class="content-block">
-            <h2>Відгуки (Comments)</h2>
-            <div id="comments-container"></div>
         </section>
 
         <section class="content-block">
@@ -57,82 +49,31 @@
                 <li>Англійська — B2 (Upper Intermediate)</li>
             </ul>
         </section>
+
+        <section class="content-block">
+            <h2>Відгуки (Comments)</h2>
+            <div id="comments-container"></div>
+        </section>
+
+        <button id="theme-toggle">Змінити тему</button>
     </main>
 
-    <div id="feedback-modal" class="modal">
-        <div class="modal-content">
-            <span id="close-modal">&times;</span>
-            <h3>Зворотний зв'язок</h3>
-            <form action="https://formspree.io/f/mrerypqo" method="POST"> 
-                <input type="text" name="name" placeholder="Ім'я" required> 
-                <input type="email" name="email" placeholder="Email" required> 
-                <input type="tel" name="phone" placeholder="Номер телефону"> 
-                <textarea name="message" placeholder="Ваше повідомлення" rows="4"></textarea> 
-                <button type="submit">Відправити</button> 
-            </form>
-        </div>
-    </div>
-
     <footer>
-        <p><em>Створено у 2026 році для лаб. роботи №4 з веб-програмування</em></p>
-        <div id="footer-info"></div> 
+        <p id="footer-info"><em>Створено у 2026 році для лаб. роботи з веб-програмування</em></p>
     </footer>
 
-    <script>
-        // 1. LocalStorage: дані про систему
-        const sysInfo = {
-            os: navigator.platform,
-            browser: navigator.userAgent
-        };
-        localStorage.setItem("userSystemInfo", JSON.stringify(sysInfo));
+    <div id="feedback-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+        <h3>Зворотний зв'язок</h3>
+        <form action="https://formspree.io/f/ВАШ_ЕНДПОЙНТ" method="POST">
+            <input type="text" name="name" placeholder="Ім'я" required><br>
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="tel" name="phone" placeholder="Номер телефону"><br>
+            <textarea name="message" placeholder="Ваше повідомлення"></textarea><br>
+            <button type="submit">Відправити</button>
+            <button type="button" id="close-modal">X</button>
+        </form>
+    </div>
 
-        // Виведення у футер
-        const footerInfo = document.getElementById("footer-info");
-        const storedData = JSON.parse(localStorage.getItem("userSystemInfo"));
-        if (storedData && footerInfo) {
-            footerInfo.innerText = `Ваша система: ${storedData.os} | Браузер: ${storedData.browser}`;
-        }
-
-        // 2. Коментарі з JSONPlaceholder
-        const myVariant = 1; 
-        fetch(`https://jsonplaceholder.typicode.com/posts/${myVariant}/comments`)
-            .then(response => response.json())
-            .then(comments => {
-                const container = document.getElementById("comments-container");
-                comments.forEach(c => {
-                    const card = document.createElement("div");
-                    card.className = "comment-card";
-                    card.innerHTML = `
-                        <strong>${c.name}</strong><br>
-                        <small>${c.email}</small>
-                        <p>${c.body}</p>
-                    `;
-                    container.appendChild(card);
-                });
-            });
-
-        // 3. Модальне вікно через 1 хв
-        setTimeout(() => {
-            const modal = document.getElementById("feedback-modal");
-            if(modal) modal.classList.add("show");
-        }, 60000);
-
-        document.getElementById("close-modal").onclick = () => {
-            document.getElementById("feedback-modal").classList.remove("show");
-        };
-
-        // 4. Логіка зміни теми
-        const themeBtn = document.getElementById("theme-toggle");
-        themeBtn.addEventListener("click", function() {
-            document.body.classList.toggle("dark");
-            console.log("Клас 'dark' зараз: " + document.body.classList.contains("dark"));
-        });
-
-        // Авто-тема (після 21:00 або до 07:00)
-        const hour = new Date().getHours();
-        if (hour < 7 || hour >= 21) {
-            document.body.classList.add("dark");
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
