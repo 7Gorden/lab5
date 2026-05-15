@@ -9,68 +9,21 @@
     <header class="main-header">
         <h1>Чепеляк Марк Васильович</h1>
         <p><strong>Посада:</strong> Junior Cybersecurity Specialist</p>
-        <p>Локація: Львів, Україна | Email: mark.chepeliak@lpnu.ua</p>
     </header>
 
     <main>
-        <section class="content-block">
-            <h2>Професійне резюме</h2>
-            <p>Студент "Львівської політехніки", орієнтований на розвиток у сфері кібербезпеки та захисту даних.</p>
-        </section>
-
-        <section class="content-block">
-            <h2>Освіта</h2>
-            <p><strong>Національний університет "Львівська політехніка"</strong></p>
-            <p>Спеціальність: Кібербезпека (у процесі навчання)</p>
-        </section>
-
-        <section class="content-block">
-            <h2>Технічні навички</h2>
-            <table>
-                <tr>
-                    <th>Категорія</th>
-                    <th>Інструменти</th>
-                </tr>
-                <tr>
-                    <td>Веб-технології</td>
-                    <td>HTML5, CSS3 (основи)</td>
-                </tr>
-                <tr>
-                    <td>Контроль версій</td>
-                    <td>Git, GitHub</td>
-                </tr>
-            </table>
-        </section>
-
-        <section class="content-block">
-            <h2>Мови</h2>
-            <ul>
-                <li>Українська — Рідна</li>
-                <li>Англійська — B2 (Upper Intermediate)</li>
-            </ul>
-        </section>
-
-        <section class="content-block">
-            <h2>Відгуки (Comments)</h2>
-            <div id="comments-container"></div>
-        </section>
-
+        <button id="open-modal">Написати мені</button>
         <button id="theme-toggle">Змінити тему</button>
     </main>
 
-    <footer>
-        <p id="footer-info"><em>Створено у 2026 році для лаб. роботи з веб-програмування</em></p>
-    </footer>
-
-    <div id="feedback-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <div id="feedback-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:2px solid #333; z-index:1000;">
         <h3>Зворотний зв'язок</h3>
-        <form action="https://formspree.io/f/mrerypqo" method="POST">
-            <input type="text" name="name" placeholder="Ім'я" required><br>
-            <input type="email" name="email" placeholder="Email" required><br>
-            <input type="tel" name="phone" placeholder="Номер телефону"><br>
-            <textarea name="message" placeholder="Ваше повідомлення"></textarea><br>
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="Ім'я" required><br><br>
+            <input type="email" name="email" placeholder="Email" required><br><br>
+            <textarea name="message" placeholder="Повідомлення" required></textarea><br><br>
             <button type="submit">Відправити</button>
-            <button type="button" id="close-modal">X</button>
+            <button type="button" id="close-modal">Закрити</button>
         </form>
     </div>
 
